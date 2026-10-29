@@ -2,7 +2,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
 [![Flask](https://img.shields.io/badge/Flask-2.3%2B-lightgrey.svg?logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
-[![MySQL](https://img.shields.io/badge/MySQL-8.0%2B-4479A1.svg?logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![Google Sheets](https://img.shields.io/badge/Google%20Sheets-API-34A853.svg?logo=googlesheets&logoColor=white)](https://sheets.new)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26.svg?logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6.svg?logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-F7DF1E.svg?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
@@ -20,20 +20,19 @@
 - [Tech Stack](#-tech-stack)
 - [Project Architecture](#-project-architecture)
 - [Directory Structure](#-directory-structure)
-- [Database Schema](#-database-schema)
 - [Installation & Setup](#-installation--setup)
   - [Prerequisites](#prerequisites)
   - [1. Clone Repository](#1-clone-repository)
   - [2. Virtual Environment Setup](#2-virtual-environment-setup)
   - [3. Install Dependencies](#3-install-dependencies)
-  - [4. Database Configuration](#4-database-configuration)
-  - [5. Environment Variables](#5-environment-variables)
+  - [4. Environment Variables](#4-environment-variables)
+  - [5. Google Sheets Webhook Setup](#5-google-sheets-webhook-setup)
   - [6. Running the Application](#6-running-the-application)
 - [API Documentation](#-api-documentation)
   - [Health Check (`GET /api/health`)](#1-health-check)
   - [Submit Contact Inquiry (`POST /api/contact`)](#2-submit-contact-inquiry)
 - [Validation & Security](#-validation--security)
-- [Google Sheets Automation](#-google-sheets-automation)
+- [Google Sheets Automation Script](#-google-sheets-automation-script)
 - [Production Deployment](#-production-deployment)
 - [License](#-license)
 
@@ -41,7 +40,7 @@
 
 ## 🔭 Overview
 
-The **Darqend Technologies Website** is a modern, high-conversion digital agency platform paired with a robust Python Flask backend. It serves as the primary marketing showcase and client inquiry engine for Darqend Technologies, featuring interactive project showcases, service breakdowns, company information, and an asynchronous, dual-write lead capture mechanism (storing inquiries in MySQL and forwarding them to Google Sheets).
+The **Darqend Technologies Website** is a modern, high-conversion agency platform paired with a lightweight Python Flask backend. It serves as the primary marketing showcase and client inquiry engine for Darqend Technologies. All customer enquiries are validated on the backend and forwarded directly into a **Google Spreadsheet** in real time via an Apps Script webhook, eliminating the need for a local database server.
 
 ---
 
@@ -58,10 +57,10 @@ The **Darqend Technologies Website** is a modern, high-conversion digital agency
 - **Responsive Navigation:** Accessible mobile drawer menu with ARIA landmarks, `Escape` key handling, and auto-dismiss on route clicks.
 - **Scroll Interactions & Performance:** Scroll-triggered element reveals powered by `IntersectionObserver` with zero external frontend framework dependencies.
 
-### ⚙️ Backend (Lead Capture Engine)
-- **Asynchronous AJAX Submission:** Client-side fetch integration without page reloads.
-- **Dual-Storage Persistence:** Every inquiry is stored securely in MySQL and synchronized instantaneously to a Google Sheets webhook.
-- **Health Check Endpoint:** Real-time database and service readiness monitoring at `/api/health`.
+### ⚙️ Backend (Google Sheets Lead Engine)
+- **Direct-to-Sheets Integration:** Customer leads are automatically validated and written into Google Sheets in real-time.
+- **Zero Database Maintenance:** No MySQL or relational database required—simple, robust, and cost-effective.
+- **Health Check Endpoint:** Real-time service readiness monitoring at `/api/health`.
 - **CORS Protection:** Configured with domain restriction for cross-origin frontend requests.
 - **DoS Mitigation:** Hard 32 KB request size ceiling enforced via Flask configuration.
 - **Strict Data Validation:** Comprehensive server-side checks for data types, email formatting, string lengths, and whitelisted fields.
@@ -74,8 +73,7 @@ The **Darqend Technologies Website** is a modern, high-conversion digital agency
 | :--- | :--- |
 | **Frontend** | Vanilla HTML5, Modern CSS3 (Grid/Flexbox/CSS Variables), Vanilla JavaScript (ES6+) |
 | **Backend API** | Python 3.8+, Flask 2.3+, Flask-CORS, python-dotenv, Requests |
-| **Database** | MySQL Server 8.0+ / MariaDB |
-| **Integrations** | Google Sheets Webhook (via Google Apps Script) |
+| **Data Storage** | Google Sheets (via Google Apps Script Web App) |
 | **Assets & Fonts** | Google Fonts (*Inter*), Custom SVG & PNG Brand Assets |
 
 ---
@@ -83,28 +81,29 @@ The **Darqend Technologies Website** is a modern, high-conversion digital agency
 ## 📐 Project Architecture
 
 ```
-                       ┌─────────────────────────────────────────┐
-                       │   Frontend Client (Browser / Port 5500) │
-                       │    HTML5 / Modern CSS / Vanilla JS      │
-                       └──────────────────┬──────────────────────┘
-                                          │
-                                 JSON POST /api/contact
-                                          │
-                                          ▼
-                       ┌─────────────────────────────────────────┐
-                       │       Flask API Service (Port 5000)     │
-                       │         - 32 KB Payload Limit           │
-                       │         - Strict Field Validation       │
-                       │         - CORS Middleware               │
-                       └──────────────┬──────────────────┬───────┘
-                                      │                  │
-                Parameterized SQL     │                  │  Webhook Sync
-                Transactions          │                  │  (Requests)
-                                      ▼                  ▼
-                    ┌───────────────────────┐  ┌───────────────────────┐
-                    │     MySQL Database    │  │  Google Sheets Script │
-                    │   (darqend_db)        │  │     (Spreadsheet)     │
-                    └───────────────────────┘  └───────────────────────┘
+┌─────────────────────────────────────────┐
+│   Frontend Client (Browser / Port 5000) │
+│    HTML5 / Modern CSS / Vanilla JS      │
+└──────────────────┬──────────────────────┘
+                   │
+          JSON POST /api/contact
+                   │
+                   ▼
+┌─────────────────────────────────────────┐
+│       Flask API Service (Port 5000)     │
+│         - 32 KB Payload Limit           │
+│         - Strict Field Validation       │
+│         - CORS Middleware               │
+└──────────────────┬──────────────────────┘
+                   │
+          Direct Webhook POST
+          (JSON with secret)
+                   │
+                   ▼
+┌─────────────────────────────────────────┐
+│        Google Apps Script Web App       │
+│       Appends row to Google Sheet       │
+└─────────────────────────────────────────┘
 ```
 
 ---
@@ -137,37 +136,7 @@ DARQEND-WEBSITE/
     ├── contact.html                 # Contact & project inquiry page
     ├── index.html                   # Homepage
     ├── projects.html                # Project showcases & portfolio
-    ├── services.html                # IT & software services catalog
-    └── storeddatas.html             # Internal/administrative view template
-```
-
----
-
-## 🗄️ Database Schema
-
-Run the following SQL commands in your MySQL client to initialize the database and table:
-
-```sql
--- 1. Create the database
-CREATE DATABASE IF NOT EXISTS darqend_db
-  CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;
-
-USE darqend_db;
-
--- 2. Create contact messages table
-CREATE TABLE IF NOT EXISTS contact_messages (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    full_name VARCHAR(120) NOT NULL,
-    email VARCHAR(254) NOT NULL,
-    phone VARCHAR(30) DEFAULT NULL,
-    service VARCHAR(100) NOT NULL,
-    subject VARCHAR(200) NOT NULL,
-    budget VARCHAR(50) DEFAULT NULL,
-    message TEXT NOT NULL,
-    consent TINYINT(1) NOT NULL DEFAULT 1,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    └── services.html                # IT & software services catalog
 ```
 
 ---
@@ -176,8 +145,7 @@ CREATE TABLE IF NOT EXISTS contact_messages (
 
 ### Prerequisites
 - **Python 3.8+** installed ([Download Python](https://www.python.org/downloads/))
-- **MySQL Server 8.0+** running locally or remotely ([Download MySQL](https://dev.mysql.com/downloads/))
-- A static HTTP file server or VS Code **Live Server** extension
+- A Google Account for **Google Sheets**
 
 ---
 
@@ -216,15 +184,9 @@ pip install -r requirements.txt
 
 ---
 
-### 4. Database Configuration
+### 4. Environment Variables
 
-Make sure your MySQL server is running and execute the database script outlined in the [Database Schema](#-database-schema) section.
-
----
-
-### 5. Environment Variables
-
-Copy `.env.example` into a new `.env` file and configure your credentials:
+Create your `.env` file from the template:
 
 **Windows (PowerShell):**
 ```powershell
@@ -236,20 +198,18 @@ Copy-Item .env.example .env
 cp .env.example .env
 ```
 
-Open `.env` and configure:
+Open `.env` and set your webhook URL and secret:
 
 ```env
-# Database Configuration
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_USER=darqend_app
-DB_PASSWORD=your_secure_password
-DB_NAME=darqend_db
-
-# Google Sheets Webhook Integration
 GOOGLE_SHEETS_WEBHOOK_URL=https://script.google.com/macros/s/your_script_id/exec
-GOOGLE_SHEETS_SECRET=your_google_sheets_secret_key
+GOOGLE_SHEETS_SECRET=Darqend_Secret_Key_2026_xyz!
 ```
+
+---
+
+### 5. Google Sheets Webhook Setup
+
+Follow the [Google Sheets Automation Script](#-google-sheets-automation-script) instructions below to generate your Webhook URL.
 
 ---
 
@@ -269,15 +229,13 @@ The application will start at `http://127.0.0.1:5000/`. You can immediately open
 - **Contact:** `http://127.0.0.1:5000/contact.html`
 - **API Health:** `http://127.0.0.1:5000/api/health`
 
-*(Optional)* You can also develop frontend templates independently with the VS Code **Live Server** extension on port 5500; CORS is configured to allow both `http://127.0.0.1:5000` and `http://127.0.0.1:5500`.
-
 ---
 
 ## 📡 API Documentation
 
 ### 1. Health Check
 
-Verifies backend runtime and database connectivity.
+Verifies backend runtime and Google Sheets configuration status.
 
 - **URL:** `/api/health`
 - **Method:** `GET`
@@ -287,15 +245,7 @@ Verifies backend runtime and database connectivity.
 ```json
 {
   "success": true,
-  "message": "Backend and database are connected."
-}
-```
-
-#### Failure Response (`503 Service Unavailable`)
-```json
-{
-  "success": false,
-  "message": "Backend or database is unavailable."
+  "message": "Backend is running and Google Sheets integration is configured."
 }
 ```
 
@@ -303,7 +253,7 @@ Verifies backend runtime and database connectivity.
 
 ### 2. Submit Contact Inquiry
 
-Validates, records an enquiry into MySQL, and triggers a sync to Google Sheets.
+Validates the form and sends the inquiry directly to Google Sheets.
 
 - **URL:** `/api/contact`
 - **Method:** `POST`
@@ -314,7 +264,7 @@ Validates, records an enquiry into MySQL, and triggers a sync to Google Sheets.
 | Field | Type | Required | Constraints |
 | :--- | :--- | :--- | :--- |
 | `fullName` | `string` | **Yes** | Max 120 characters |
-| `email` | `string` | **Yes** | Valid RFC-compliant email, max 254 characters |
+| `email` | `string` | **Yes** | Valid email, max 254 characters |
 | `phone` | `string` | No | Max 30 characters |
 | `service` | `string` | **Yes** | Must match one of [Allowed Services](#allowed-services) |
 | `subject` | `string` | **Yes** | Max 200 characters |
@@ -339,85 +289,98 @@ Validates, records an enquiry into MySQL, and triggers a sync to Google Sheets.
 - `Not decided`
 - `""` *(empty string)*
 
-#### Example Request
-```json
-{
-  "fullName": "Jane Doe",
-  "email": "jane.doe@example.com",
-  "phone": "+91 98765 43210",
-  "service": "Web Development",
-  "subject": "Enterprise Web Portal Redesign",
-  "budget": "₹50,000 - ₹1,00,000",
-  "message": "We would like to rebuild our enterprise web platform with modern architecture.",
-  "consent": true
-}
-```
-
 #### Success Response (`201 Created`)
 ```json
 {
   "success": true,
-  "message": "Thank you! Your enquiry has been submitted successfully.",
-  "id": 14
+  "message": "Thank you! Your enquiry has been submitted successfully."
 }
 ```
 
-#### Error Responses
-- **`400 Bad Request`:** Missing required fields, invalid email format, unauthorized service/budget option, or missing consent.
-- **`413 Request Entity Too Large`:** Payload exceeds 32 KB ceiling.
-- **`415 Unsupported Media Type`:** Request body was not sent as JSON.
-- **`500 Internal Server Error`:** Database error occurred during query execution.
-
 ---
 
-## 🛡️ Validation & Security
+## 📊 Google Sheets Automation Script
 
-1. **Payload Size Guard:** `app.config["MAX_CONTENT_LENGTH"] = 32 * 1024` shields the application from memory exhaustion and denial-of-service attempts.
-2. **SQL Injection Defense:** All queries to the MySQL database use parameterized placeholders (`%s`) via `mysql.connector`.
-3. **CORS Hardening:** Configured to restrict access to trusted origins. In production, adjust `origins` in `app.py` to match your domain.
-4. **Data Sanitization:** Trims leading/trailing whitespace on all string inputs and strictly rejects unexpected types.
-5. **Masked Error Responses:** Internal database connection strings and traceback specifics are kept internal and logged server-side, returning clean, secure error messages to clients.
+1. Open your Google Sheet &rarr; **Extensions** &rarr; **Apps Script**.
+2. Paste this code:
 
----
+```javascript
+const SHARED_SECRET = "Darqend_Secret_Key_2026_xyz!"; 
 
-## 📊 Google Sheets Automation
+function doPost(e) {
+  try {
+    const data = JSON.parse(e.postData.contents);
 
-When a user submits an inquiry, `save_to_google_sheet(contact)` sends an HTTP `POST` webhook to your Google Apps Script endpoint:
+    // Verify secret token
+    if (!data.secret || data.secret !== SHARED_SECRET) {
+      return ContentService.createTextOutput(
+        JSON.stringify({ success: false, message: "Unauthorized: Invalid secret" })
+      ).setMimeType(ContentService.MimeType.JSON);
+    }
 
-```json
-{
-  "secret": "<GOOGLE_SHEETS_SECRET>",
-  "full_name": "Jane Doe",
-  "email": "jane.doe@example.com",
-  "phone": "+91 98765 43210",
-  "service": "Web Development",
-  "subject": "Enterprise Web Portal Redesign",
-  "budget": "₹50,000 - ₹1,00,000",
-  "message": "We would like to rebuild our enterprise web platform..."
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+
+    // Auto-create headers if sheet is empty
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow([
+        "Timestamp",
+        "Full Name",
+        "Email",
+        "Phone",
+        "Service",
+        "Subject",
+        "Budget",
+        "Message"
+      ]);
+    }
+
+    // Append the incoming inquiry row
+    sheet.appendRow([
+      new Date(),
+      data.full_name || "",
+      data.email || "",
+      data.phone || "",
+      data.service || "",
+      data.subject || "",
+      data.budget || "",
+      data.message || ""
+    ]);
+
+    return ContentService.createTextOutput(
+      JSON.stringify({ success: true, message: "Row added successfully" })
+    ).setMimeType(ContentService.MimeType.JSON);
+
+  } catch (err) {
+    return ContentService.createTextOutput(
+      JSON.stringify({ success: false, error: err.toString() })
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
 }
 ```
 
-If Google Sheets sync fails, it logs an exception without breaking the client-facing confirmation.
+3. Click **Deploy** &rarr; **New deployment** &rarr; select **Web app**.
+   - **Execute as:** `Me`
+   - **Who has access:** `Anyone` *(Crucial!)*
+4. Copy the Web app URL and paste it into your `.env` file under `GOOGLE_SHEETS_WEBHOOK_URL`.
 
 ---
 
 ## 🌐 Production Deployment
 
-For production deployments, make sure to:
+For production deployments:
 
 1. **Disable Debug Mode:** Set `debug=False` in `app.run()` or invoke a production WSGI server.
 2. **Use a Production WSGI Server:**
    ```bash
-   # Gunicorn (Linux)
+   # Linux
    pip install gunicorn
    gunicorn -w 4 -b 0.0.0.0:5000 app:app
 
-   # Waitress (Windows)
+   # Windows
    pip install waitress
    waitress-serve --port=5000 app:app
    ```
-3. **Update CORS Origins:** Update `origins` in `app.py` to match your live domain (e.g., `https://darqend.com`).
-4. **Configure Reverse Proxy:** Put **Nginx** or **Cloudflare** in front of your WSGI server with HTTPS / SSL termination.
+3. **Configure Reverse Proxy:** Put **Nginx** or **Cloudflare** in front of your WSGI server with HTTPS / SSL termination.
 
 ---
 

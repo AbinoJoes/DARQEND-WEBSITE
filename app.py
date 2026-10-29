@@ -6,8 +6,6 @@ import requests
 from flask import Flask, request, jsonify, render_template, send_from_directory
 from flask_cors import CORS
 from dotenv import load_dotenv
-import mysql.connector
-from mysql.connector import Error
 
 load_dotenv()
 
@@ -52,27 +50,14 @@ ALLOWED_BUDGETS = {
 }
 
 
-def get_db_connection():
-    """Create a connection to the MySQL database."""
-    return mysql.connector.connect(
-        host=os.getenv("DB_HOST", "127.0.0.1"),
-        port=int(os.getenv("DB_PORT", "3306")),
-        user=os.getenv("DB_USER", "darqend_app"),
-        password=os.getenv("DB_PASSWORD", "abino123"),
-        database=os.getenv("DB_NAME", "darqend_db"),
-        connection_timeout=10,
-        autocommit=False,
-    )
-
-
 def save_to_google_sheet(contact):
-    """Sync contact enquiry to Google Sheets webhook if configured."""
+    """Sync contact enquiry directly to Google Sheets webhook."""
     webhook_url = os.getenv("GOOGLE_SHEETS_WEBHOOK_URL")
     secret = os.getenv("GOOGLE_SHEETS_SECRET")
 
     if not webhook_url or not secret:
-        logger.info("Google Sheets webhook URL or secret not configured, skipping sync.")
-        return
+        logger.error("Google Sheets webhook URL or secret not configured in .env.")
+        return False, "Google Sheets webhook URL or secret is not configured in .env."
 
     payload = {
         "secret": secret,
@@ -85,15 +70,40 @@ def save_to_google_sheet(contact):
         "message": contact["message"],
     }
 
-    response = requests.post(
-        webhook_url,
-        json=payload,
-        timeout=15,
-    )
-    response.raise_for_status()
+    try:
+        response = requests.post(
+            webhook_url,
+            json=payload,
+            headers={"Content-Type": "application/json"},
+            allow_redirects=True,
+            timeout=20,
+        )
 
-    if not response.json().get("success"):
-        raise RuntimeError("Google Sheets save failed")
+        if response.status_code == 401:
+            logger.error("Google Apps Script returned 401 Unauthorized. Access must be set to 'Anyone'.")
+            return (
+                False,
+                "Google Apps Script returned 401 Unauthorized. Please ensure 'Who has access' is set to 'Anyone' in your deployment settings."
+            )
+
+        response.raise_for_status()
+
+        try:
+            res_json = response.json()
+            if res_json.get("success"):
+                logger.info("Enquiry successfully recorded in Google Sheets.")
+                return True, "Enquiry saved successfully."
+            else:
+                logger.warning("Google Sheets script returned error: %s", res_json)
+                return False, res_json.get("message", "Google Sheet rejected the submission.")
+        except Exception:
+            if "success" in response.text.lower() or response.status_code == 200:
+                return True, "Enquiry saved successfully."
+            return False, f"Unexpected response from Google: {response.text[:120]}"
+
+    except requests.exceptions.RequestException as exc:
+        logger.exception("Google Sheets connection error: %s", exc)
+        return False, f"Failed to connect to Google Sheets: {str(exc)}"
 
 
 # ---------------------------------------------------------------------------
@@ -151,34 +161,25 @@ def favicon():
 
 @app.get("/api/health")
 def health():
-    """Check whether the backend and database are available."""
-    connection = None
-    try:
-        connection = get_db_connection()
-        if not connection.is_connected():
-            raise RuntimeError("Database connection is unavailable")
+    """Check whether the backend and Google Sheets configuration are available."""
+    has_webhook = bool(os.getenv("GOOGLE_SHEETS_WEBHOOK_URL"))
+    has_secret = bool(os.getenv("GOOGLE_SHEETS_SECRET"))
 
+    if has_webhook and has_secret:
         return jsonify({
             "success": True,
-            "message": "Backend and database are connected."
+            "message": "Backend is running and Google Sheets integration is configured."
         }), 200
 
-    except (Error, RuntimeError, ValueError):
-        logger.exception("Health check failed")
-        return jsonify({
-            "success": False,
-            "message": "Backend or database is unavailable."
-        }), 503
-
-    finally:
-        if connection and connection.is_connected():
-            connection.close()
+    return jsonify({
+        "success": False,
+        "message": "Backend is running, but GOOGLE_SHEETS_WEBHOOK_URL or GOOGLE_SHEETS_SECRET is missing."
+    }), 503
 
 
 @app.post("/api/contact")
 def submit_contact():
-    """Validate and save a contact form submission."""
-    # Accept JSON requests from the frontend.
+    """Validate and forward contact enquiry directly to Google Sheets."""
     if not request.is_json:
         return jsonify({
             "success": False,
@@ -287,82 +288,27 @@ def submit_contact():
             "message": "Please agree to be contacted."
         }), 400
 
-    connection = None
-    cursor = None
-    saved_id = None
+    # Forward directly to Google Sheets
+    success, reason = save_to_google_sheet({
+        "full_name": full_name,
+        "email": email,
+        "phone": phone,
+        "service": service,
+        "subject": subject,
+        "budget": budget,
+        "message": message,
+    })
 
-    try:
-        connection = get_db_connection()
-        cursor = connection.cursor()
-
-        sql = """
-            INSERT INTO contact_messages
-            (
-                full_name,
-                email,
-                phone,
-                service,
-                subject,
-                budget,
-                message,
-                consent
-            )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-        """
-
-        values = (
-            full_name,
-            email,
-            phone or None,
-            service,
-            subject,
-            budget or None,
-            message,
-            1,
-        )
-
-        cursor.execute(sql, values)
-        connection.commit()
-        saved_id = cursor.lastrowid
-
-    except Error:
-        if connection and connection.is_connected():
-            connection.rollback()
-
-        # Keep database details out of the public response.
-        logger.exception("Failed to save contact enquiry to database")
-
+    if success:
         return jsonify({
-            "success": False,
-            "message": "We could not save your enquiry. Please try again later."
-        }), 500
-
-    finally:
-        if cursor:
-            cursor.close()
-
-        if connection and connection.is_connected():
-            connection.close()
-
-    # Send the saved contact data to Google Sheets (non-blocking)
-    try:
-        save_to_google_sheet({
-            "full_name": full_name,
-            "email": email,
-            "phone": phone,
-            "service": service,
-            "subject": subject,
-            "budget": budget,
-            "message": message,
-        })
-    except Exception:
-        logger.exception("Google Sheets sync failed")
+            "success": True,
+            "message": "Thank you! Your enquiry has been submitted successfully."
+        }), 201
 
     return jsonify({
-        "success": True,
-        "message": "Thank you! Your enquiry has been submitted successfully.",
-        "id": saved_id,
-    }), 201
+        "success": False,
+        "message": reason
+    }), 502
 
 
 @app.errorhandler(413)
@@ -374,5 +320,4 @@ def request_too_large(error):
 
 
 if __name__ == "__main__":
-    # Debug mode is for local development only.
     app.run(host="127.0.0.1", port=5000, debug=True)
