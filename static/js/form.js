@@ -1,4 +1,3 @@
-
 const contactForm = document.getElementById("contactForm");
 const formStatus = document.getElementById("formStatus");
 const submitButton = contactForm.querySelector(
@@ -29,8 +28,12 @@ contactForm.addEventListener("submit", async function (event) {
     formStatus.textContent = "Sending your enquiry...";
 
     try {
+        const endpoint = window.location.port === "5500"
+            ? "http://127.0.0.1:5000/api/contact"
+            : "/api/contact";
+
         const response = await fetch(
-            "http://127.0.0.1:5000/api/contact",
+            endpoint,
             {
                 method: "POST",
                 headers: {
