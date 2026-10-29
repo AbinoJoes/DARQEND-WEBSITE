@@ -1,0 +1,398 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Contact Darqend Technologies for web development, software solutions, AI and data solutions, UI/UX design, and IT consulting.">
+
+  <title>Contact Us | Darqend Technologies</title>
+
+  <link rel="stylesheet" href="../static/css/style.css">
+  <link rel="stylesheet" href="../static/css/contact.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="container nav-container">
+
+    <a href="index.html" class="brand">
+    <img src="../static/assets/WhatsApp_Image_2026-10-27_at_9.11.29_PM-removebg-preview.png"  style="width:180px">
+    </a>
+
+    <nav class="nav-links" id="mainNav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html" class="active" aria-current="page">Contact</a>
+    </nav>
+
+    <a href="#contact-form" class="btn nav-cta">Let's Talk ↗</a>
+
+    <button class="menu-toggle"
+      aria-label="Open navigation"
+      aria-controls="mainNav"
+      aria-expanded="false">
+      ☰
+    </button>
+
+  </div>
+</header>
+
+<main>
+
+  <!-- CONTACT HERO -->
+  <section class="contact-hero">
+    <div class="contact-hero-bg"></div>
+
+    <div class="container contact-hero-content">
+
+    
+      <span class="eyebrow reveal">LET'S CONNECT</span>
+
+      <h1 class="reveal delay-1">
+        Let's build something
+        <span class="outline-text">meaningful together.</span>
+      </h1>
+
+      <p class="reveal delay-2">
+        Have an idea, a business challenge, or a project in mind?
+        Tell us what you're planning. Our team is ready to explore
+        the right technology solution for your goals.
+      </p>
+
+      <a href="#contact-form" class="btn reveal delay-3">
+        Start a Conversation ↘
+      </a>
+
+      <div class="contact-hero-index">
+        <span>CONTACT / 01</span>
+        <span>IDEAS INTO DIGITAL REALITY</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT INFORMATION AND FORM -->
+  <section class="section contact-main">
+    <div class="container">
+
+      <div class="contact-heading reveal">
+        <span class="eyebrow">GET IN TOUCH</span>
+        <h2>Every great solution starts with a conversation.</h2>
+        <p>
+          Share a little about your requirements. We'll use your message
+          to understand your goals and discuss the next steps.
+        </p>
+      </div>
+
+      <div class="contact-layout">
+
+        <!-- LEFT INFORMATION PANEL -->
+        <aside class="contact-info reveal">
+
+          <span class="contact-panel-label">CONTACT INFORMATION</span>
+
+          <h3>Let's turn your ideas into action.</h3>
+
+          <p class="contact-info-description">
+            Whether you need a new website, a custom application,
+            or expert IT guidance, let's find a practical way forward.
+          </p>
+
+          <div class="contact-info-list">
+
+            <a class="contact-info-item" href="#contact-form">
+              <span class="contact-info-icon">↗</span>
+              <span>
+                <small>PROJECT ENQUIRIES</small>
+                <strong>Discuss your next project</strong>
+              </span>
+            </a>
+
+            <a class="contact-info-item" href="services.html">
+              <span class="contact-info-icon">⌘</span>
+              <span>
+                <small>OUR EXPERTISE</small>
+                <strong>Explore our services</strong>
+              </span>
+            </a>
+
+            <a class="contact-info-item" href="projects.html">
+              <span class="contact-info-icon">◇</span>
+              <span>
+                <small>OUR WORK</small>
+                <strong>Discover our projects</strong>
+              </span>
+            </a>
+
+          </div>
+
+          <div class="contact-info-bottom">
+            <span class="contact-status-dot"></span>
+            <span>READY TO EXPLORE YOUR NEXT IDEA</span>
+          </div>
+
+          <div class="contact-decoration contact-decoration-one"></div>
+          <div class="contact-decoration contact-decoration-two"></div>
+
+        </aside>
+
+        <!-- RIGHT CONTACT FORM -->
+        <div class="contact-form-panel reveal delay-1" id="contact-form">
+
+          <div class="form-heading">
+            <span class="eyebrow">SEND US A MESSAGE</span>
+            <h3>Tell us about your project.</h3>
+            <p>Fields marked with * are required.</p>
+          </div>
+
+          <form id="contactForm" action="#" method="post">
+
+            <div class="form-row">
+
+              <div class="form-group">
+                <label for="fullName">Full Name *</label>
+                <input
+                  type="text"
+                  id="fullName"
+                  name="fullName"
+                  placeholder="Enter your full name"
+                  autocomplete="name"
+                  required>
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="you@example.com"
+                  autocomplete="email"
+                  required>
+              </div>
+
+            </div>
+
+            <div class="form-row">
+
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="+91 98765 43210"
+                  autocomplete="tel">
+              </div>
+
+              <div class="form-group">
+                <label for="service">Service Required *</label>
+                <select id="service" name="service" required>
+                  <option value="" disabled selected>Select a service</option>
+                  <option value="Web Development">Web Development</option>
+                  <option value="Software Solutions">Software Solutions</option>
+                  <option value="AI and Data Solutions">AI &amp; Data Solutions</option>
+                  <option value="UI UX Design">UI/UX Design</option>
+                  <option value="Cloud and Integration">Cloud &amp; Integration</option>
+                  <option value="IT Consulting">IT Consulting</option>
+                  <option value="Other">Other Enquiry</option>
+                </select>
+              </div>
+
+            </div>
+
+            <div class="form-group">
+              <label for="subject">Subject *</label>
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                placeholder="What would you like to discuss?"
+                required>
+            </div>
+
+            <div class="form-group">
+              <label for="budget">Estimated Budget</label>
+              <select id="budget" name="budget">
+                <option value="" selected>Select your budget (optional)</option>
+                <option value="Under ₹25,000">Under ₹25,000</option>
+                <option value="₹25,000 - ₹50,000">₹25,000 – ₹50,000</option>
+                <option value="₹50,000 - ₹1,00,000">₹50,000 – ₹1,00,000</option>
+                <option value="Above ₹1,00,000">Above ₹1,00,000</option>
+                <option value="Not decided">Not decided yet</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Your Message *</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                placeholder="Tell us about your project, goals, and requirements..."
+                required></textarea>
+            </div>
+
+            <label class="form-consent">
+              <input type="checkbox" id="consent" name="consent" required>
+              <span>
+                I agree to be contacted regarding this enquiry.
+              </span>
+            </label>
+
+            <button type="submit" class="btn contact-submit">
+              Send Message <span>↗</span>
+            </button>
+
+            <p class="form-status" id="formStatus" role="status"
+              aria-live="polite"></p>
+
+            <p class="form-note">
+              Your information should be handled responsibly and used
+              only for the purposes explained in your privacy policy.
+            </p>
+
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CONTACT US -->
+  <section class="section section-light contact-benefits">
+    <div class="container">
+
+      <div class="section-heading reveal">
+        <span class="eyebrow">WHY DARQEND</span>
+        <h2>A thoughtful approach to every project.</h2>
+        <p>
+          We focus on understanding your needs before recommending
+          technology or beginning development.
+        </p>
+      </div>
+
+      <div class="contact-benefits-grid">
+
+        <article class="contact-benefit-card reveal">
+          <span class="benefit-number">01</span>
+          <div class="benefit-icon">◎</div>
+          <h3>Understand Your Goals</h3>
+          <p>
+            We begin by learning about your business, users,
+            challenges, and desired outcomes.
+          </p>
+        </article>
+
+        <article class="contact-benefit-card reveal delay-1">
+          <span class="benefit-number">02</span>
+          <div class="benefit-icon">⌘</div>
+          <h3>Find the Right Solution</h3>
+          <p>
+            We explore suitable technologies and practical approaches
+            based on your specific requirements.
+          </p>
+        </article>
+
+        <article class="contact-benefit-card reveal delay-2">
+          <span class="benefit-number">03</span>
+          <div class="benefit-icon">↗</div>
+          <h3>Plan the Next Step</h3>
+          <p>
+            We work toward a clear project direction, realistic scope,
+            and a shared understanding of the next steps.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="section contact-final-cta">
+    <div class="container">
+      <div class="cta-panel reveal">
+
+        <div>
+          <span class="eyebrow">YOUR NEXT CHAPTER STARTS HERE</span>
+          <h2>Have an idea worth building?</h2>
+          <p>
+            Let's discuss your vision and explore what's possible.
+          </p>
+        </div>
+
+        <a href="#contact-form" class="btn btn-light">
+          Tell Us About It ↗
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+
+    <div class="footer-grid">
+
+      <div>
+        <a href="index.html" class="brand">
+          <span class="brand-symbol">D</span>
+          <span>Darqend Technologies</span>
+        </a>
+
+        <p>
+          Building thoughtful digital experiences through design,
+          engineering, and technology.
+        </p>
+      </div>
+
+      <div>
+        <h3>Explore</h3>
+        <div class="footer-links">
+          <a href="about.html">About Us</a>
+          <a href="services.html">Our Services</a>
+          <a href="projects.html">Projects</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+
+      <div>
+        <h3>Get in Touch</h3>
+        <div class="footer-links">
+          <a href="#contact-form">Discuss a Project ↗</a>
+          <a href="services.html">Explore Solutions ↗</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>
+        © <span data-year></span> Darqend Technologies. All rights reserved.
+      </span>
+      <span>Designing a smarter digital future.</span>
+    </div>
+
+  </div>
+</footer>
+
+<script src="../static/js/script.js" defer></script>
+<script src="../static/js/form.js" defer></script>
+
+</body>
+</html>
+
+
