@@ -1,39 +1,40 @@
-
 /* =====================================================
    DARQEND TECHNOLOGIES - ABOUT PAGE DESIGN
-   Theme: Black / White / Grey
+   Theme: Navy / Teal / Olive / White
    ===================================================== */
 
 :root {
-    --about-black: #101010;
-    --about-dark: #171717;
-    --about-white: #ffffff;
-    --about-grey: #777777;
-    --about-muted: #a3a3a3;
-    --about-light: #f3f3f1;
-    --about-border: #dededb;
+    --about-black: #16203F;
+    --about-dark: #2C485A;
+    --about-white: #FFFFFF;
+    --about-grey: #446A72;
+    --about-muted: #848772;
+    --about-light: #F1F4F3;
+    --about-border: #D5DFDE;
 }
 
 /* ================= ABOUT HERO ================= */
 
 .about-hero {
     position: relative;
-    min-height: 690px;
+    min-height: 750px;
     display: flex;
     align-items: center;
     overflow: hidden;
-    background: var(--about-light);
+    background: #D5DFDE;
     isolation: isolate;
+    
 }
-/* 
+
+/*
 .about-hero-grid {
     position: absolute;
     inset: 0;
     z-index: -2;
 
     background-image:
-        linear-gradient(rgba(0, 0, 0, .035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 0, 0, .035) 1px, transparent 1px);
+        linear-gradient(rgba(22, 32, 63, .035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(22, 32, 63, .035) 1px, transparent 1px);
 
     background-size: 55px 55px;
 
@@ -43,11 +44,12 @@
         black 30%,
         black 100%
     );
-} */
+}
+*/
 
 .about-hero-content {
     position: relative;
-    padding-top: 80px;
+    /* padding-top: 20px; */
     padding-bottom: 50px;
 }
 
@@ -56,22 +58,27 @@
 }
 
 .about-hero-text {
-    max-width: 1000px;
-    animation: aboutHeroEnter 1s ease both;
+    
+   
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    align-items: center;
+    gap:80px;
+    padding-block: 100px;
+    
 }
 
+
+
 .about-hero-text h1 {
-    max-width: 950px;
-    font-size: clamp(45px, 7vw, 92px);
-    font-weight: 600;
-    letter-spacing: -5px;
-    line-height: 1.04;
+  max-width: 800px;
 }
 
 .outline-text {
     display: block;
     color: transparent;
     -webkit-text-stroke: 1.5px var(--about-black);
+    ;
 }
 
 .about-hero-text > p {
@@ -79,7 +86,7 @@
     margin-top: 30px;
     font-size: 17px;
     line-height: 1.9;
-    color: #686868;
+    color: #446A72;
 }
 
 .about-hero-actions {
@@ -94,8 +101,7 @@
     display: flex;
     align-items: center;
     gap: 18px;
-    margin-top: 85px;
-    color: #626262;
+    color: #446A72;
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 2px;
@@ -104,7 +110,7 @@
 .about-bottom-line {
     height: 1px;
     width: 35px;
-    background: #bdbdb9;
+    background: #848772;
 }
 
 .about-hero-orb {
@@ -114,15 +120,15 @@
     border-radius: 50%;
 }
 
-.orb-one {
+/* .orb-one {
     width: 340px;
     height: 340px;
     right: -70px;
     top: 90px;
-    border: 1px solid #c9c9c5;
+    border: 1px solid #D5DFDE;
     box-shadow:
-        0 0 0 45px rgba(0, 0, 0, .025),
-        0 0 0 90px rgba(0, 0, 0, .02);
+        0 0 0 45px rgba(22, 32, 63, .025),
+        0 0 0 90px rgba(22, 32, 63, .02);
     animation: aboutOrbit 30s linear infinite;
 }
 
@@ -131,16 +137,16 @@
     height: 120px;
     right: 60px;
     top: 200px;
-    background: #222;
+    background: #2C485A;
     opacity: .06;
     filter: blur(3px);
     animation: aboutFloat 6s ease-in-out infinite;
-}
+} */
 
 /* ================= ABOUT INTRODUCTION ================= */
 
 .about-intro {
-    background: #fff;
+    background: #FFFFFF;
 }
 
 .about-intro-grid {
@@ -165,20 +171,20 @@
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 2px;
-    color: #777;
+    color: #446A72;
 }
 
 .about-big-number > span:first-child {
     font-family: var(--heading);
     font-size: 55px;
-    color: #d1d1cd;
+    color: #848772;
     letter-spacing: -3px;
 }
 
 .about-number-line {
     width: 55px;
     height: 1px;
-    background: #bdbdb9;
+    background: #848772;
 }
 
 .about-intro-right {
@@ -189,12 +195,12 @@
     font-size: 15px;
     line-height: 1.95;
     margin-bottom: 22px;
-    color: #707070;
+    color: #446A72;
 }
 
 .about-intro-right .about-lead {
     font-family: var(--heading);
-    color: #1b1b1b;
+    color: #16203F;
     font-size: 23px;
     line-height: 1.55;
     margin-bottom: 28px;
@@ -227,7 +233,7 @@
 }
 
 .about-statement h2 span {
-    color: #858585;
+    color: #848772;
 }
 
 .about-statement-inner > p {
@@ -244,7 +250,7 @@
     font-family: var(--heading);
     font-size: 210px;
     font-weight: 700;
-    color: #fff;
+    color: #FFFFFF;
     opacity: .035;
     line-height: 1;
     pointer-events: none;
@@ -253,7 +259,7 @@
 /* ================= MISSION AND VISION ================= */
 
 .about-purpose {
-    background: #fff;
+    background: #FFFFFF;
 }
 
 .purpose-grid {
@@ -280,7 +286,7 @@
     transform: translateY(-8px);
     background: var(--about-black);
     color: white;
-    box-shadow: 0 20px 45px rgba(0, 0, 0, .1);
+    box-shadow: 0 20px 45px rgba(22, 32, 63, .1);
 }
 
 .purpose-card-top {
@@ -293,7 +299,7 @@
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 2px;
-    color: #777;
+    color: #446A72;
 }
 
 .purpose-icon {
@@ -317,12 +323,12 @@
     margin-top: 17px;
     font-size: 14px;
     line-height: 1.9;
-    color: #777;
+    color: #446A72;
 }
 
 .purpose-card:hover > p,
 .purpose-card:hover .purpose-index {
-    color: #c3c3c3;
+    color: #D5DFDE;
 }
 
 .purpose-card-footer {
@@ -331,35 +337,35 @@
     align-items: center;
     margin-top: auto;
     padding-top: 35px;
-    color: #777;
+    color: #446A72;
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 1.5px;
 }
 
 .purpose-card:hover .purpose-card-footer {
-    color: #ccc;
+    color: #D5DFDE;
 }
 
 /* ================= CORE VALUES ================= */
 
 .about-values {
-    background: #f3f3f1;
+    background: #F1F4F3;
 }
 
 .about-values-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1px;
-    background: #dcdcd8;
-    border: 1px solid #dcdcd8;
+    background: #D5DFDE;
+    border: 1px solid #D5DFDE;
 }
 
 .about-value-card {
     position: relative;
     min-height: 300px;
     padding: 30px;
-    background: #f9f9f7;
+    background: #F1F4F3;
     overflow: hidden;
     transition:
         background .35s ease,
@@ -374,7 +380,7 @@
     bottom: 0;
     width: 0;
     height: 3px;
-    background: #111;
+    background: #16203F;
     transition: width .45s ease;
 }
 
@@ -383,7 +389,7 @@
 }
 
 .about-value-card:hover {
-    background: #fff;
+    background: #FFFFFF;
     transform: translateY(-4px);
 }
 
@@ -391,7 +397,7 @@
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 2px;
-    color: #888;
+    color: #848772;
 }
 
 .about-value-icon {
@@ -414,13 +420,13 @@
     margin-top: 13px;
     font-size: 13px;
     line-height: 1.85;
-    color: #777;
+    color: #446A72;
 }
 
 .value-bottom-label {
     display: block;
     margin-top: 23px;
-    color: #999;
+    color: #848772;
     font-size: 9px;
     font-weight: 700;
     letter-spacing: 1.5px;
@@ -429,7 +435,7 @@
 /* ================= TECHNOLOGY EXPERTISE ================= */
 
 .about-tech {
-    background: #fff;
+    background: #FFFFFF;
 }
 
 .about-tech-grid {
@@ -448,7 +454,7 @@
     margin-top: 22px;
     font-size: 14px;
     line-height: 1.95;
-    color: #777;
+    color: #446A72;
 }
 
 .about-tech-content .btn {
@@ -458,7 +464,7 @@
 .about-tech-panel {
     padding: 30px;
     background: #f5f5f3;
-    border: 1px solid #e4e4e1;
+    border: 1px solid #D5DFDE;
 }
 
 .tech-panel-heading {
@@ -466,7 +472,7 @@
     justify-content: space-between;
     align-items: center;
     padding-bottom: 24px;
-    border-bottom: 1px solid #dcdcd8;
+    border-bottom: 1px solid #D5DFDE;
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 2px;
@@ -475,9 +481,9 @@
 .tech-live-dot {
     width: 8px;
     height: 8px;
-    background: #333;
+    background: #446A72;
     border-radius: 50%;
-    box-shadow: 0 0 0 5px #dededb;
+    box-shadow: 0 0 0 5px #D5DFDE;
     animation: aboutPulse 2s ease-in-out infinite;
 }
 
@@ -487,7 +493,7 @@
     align-items: center;
     gap: 15px;
     padding: 24px 0;
-    border-bottom: 1px solid #dededb;
+    border-bottom: 1px solid #D5DFDE;
     transition: padding .3s ease;
 }
 
@@ -501,7 +507,7 @@
     place-items: center;
     width: 36px;
     height: 36px;
-    border: 1px solid #ccc;
+    border: 1px solid #D5DFDE;
     font-size: 11px;
     font-weight: 700;
 }
@@ -516,18 +522,18 @@
     margin-top: 7px;
     font-size: 11px;
     line-height: 1.7;
-    color: #777;
+    color: #446A72;
     overflow-wrap: anywhere;
 }
 
 .tech-arrow {
-    color: #777;
+    color: #446A72;
     transition: transform .3s;
 }
 
 .tech-item:hover .tech-arrow {
     transform: translate(3px, -3px);
-    color: #111;
+    color: #16203F;
 }
 
 .tech-panel-footer {
@@ -538,13 +544,13 @@
     font-size: 9px;
     letter-spacing: 1.5px;
     font-weight: 700;
-    color: #888;
+    color: #848772;
 }
 
 /* ================= WHY CHOOSE US ================= */
 
 .about-choose {
-    background: #101010;
+    background: #16203F;
 }
 
 .about-choose .section-heading h2 {
@@ -567,11 +573,11 @@
     gap: 20px;
     align-items: start;
     padding: 28px 0;
-    border-top: 1px solid #373737;
+    border-top: 1px solid #446A72;
 }
 
 .choose-number {
-    color: #858585;
+    color: #848772;
     font-size: 12px;
     font-weight: 700;
 }
@@ -586,23 +592,23 @@
     margin-top: 11px;
     font-size: 13px;
     line-height: 1.9;
-    color: #a0a0a0;
+    color: #848772;
 }
 
 .choose-symbol {
-    color: #777;
+    color: #446A72;
     transition: transform .3s ease, color .3s ease;
 }
 
 .choose-item:hover .choose-symbol {
     transform: translate(3px, -3px);
-    color: #fff;
+    color: #FFFFFF;
 }
 
 /* ================= DEVELOPMENT TIMELINE ================= */
 
 .about-process {
-    background: #fff;
+    background: #FFFFFF;
 }
 
 .about-timeline {
@@ -618,7 +624,7 @@
     bottom: 20px;
     left: 27px;
     width: 1px;
-    background: #d6d6d2;
+    background: #D5DFDE;
 }
 
 .timeline-step {
@@ -640,8 +646,8 @@
     place-items: center;
     width: 55px;
     height: 55px;
-    background: #fff;
-    border: 1px solid #cfcfcb;
+    background: #FFFFFF;
+    border: 1px solid #848772;
     font-family: var(--heading);
     font-size: 15px;
     font-weight: 700;
@@ -652,7 +658,7 @@
 }
 
 .timeline-step:hover .timeline-marker {
-    background: #111;
+    background: #16203F;
     color: white;
     transform: rotate(-5deg);
 }
@@ -665,7 +671,7 @@
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 2px;
-    color: #888;
+    color: #848772;
 }
 
 .timeline-content h3 {
@@ -678,7 +684,7 @@
     margin-top: 13px;
     font-size: 14px;
     line-height: 1.9;
-    color: #777;
+    color: #446A72;
 }
 
 /* ================= FINAL CTA ================= */
@@ -686,7 +692,7 @@
 .about-final-cta {
     padding-top: 30px;
     padding-bottom: 100px;
-    background: #fff;
+    background: #FFFFFF;
 }
 
 .about-cta-panel {
@@ -694,8 +700,8 @@
     isolation: isolate;
     overflow: hidden;
     padding: 75px;
-    background: #111;
-    color: #fff;
+    background: #16203F;
+    color: #FFFFFF;
 }
 
 .about-cta-content {
@@ -715,22 +721,22 @@
     margin-top: 20px;
     font-size: 14px;
     line-height: 1.9;
-    color: #b4b4b4;
+    color: #D5DFDE;
 }
 
 .about-cta-panel .eyebrow {
-    color: #b7b7b7;
+    color: #848772;
 }
 
 .about-cta-panel .btn-light:hover {
-    color: #fff;
+    color: #FFFFFF;
 }
 
 .about-cta-link {
-    color: #fff;
+    color: #FFFFFF;
     font-size: 13px;
     font-weight: 700;
-    border-bottom: 1px solid #777;
+    border-bottom: 1px solid #446A72;
     padding-bottom: 6px;
 }
 
@@ -743,7 +749,7 @@
     font-size: 300px;
     line-height: 1;
     font-weight: 700;
-    color: #fff;
+    color: #FFFFFF;
     opacity: .035;
     pointer-events: none;
 }
@@ -755,7 +761,7 @@
     bottom: -200px;
     width: 430px;
     height: 430px;
-    border: 1px solid #363636;
+    border: 1px solid #446A72;
     border-radius: 50%;
     box-shadow:
         0 0 0 50px rgba(255, 255, 255, .02),
@@ -800,11 +806,11 @@
 
 @keyframes aboutPulse {
     0%, 100% {
-        box-shadow: 0 0 0 4px #dededb;
+        box-shadow: 0 0 0 4px #D5DFDE;
     }
 
     50% {
-        box-shadow: 0 0 0 8px #dededb;
+        box-shadow: 0 0 0 8px #D5DFDE;
     }
 }
 

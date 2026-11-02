@@ -110,3 +110,43 @@ document.addEventListener("DOMContentLoaded", () => {
     yearElement.textContent = new Date().getFullYear();
   }
 });
+
+
+
+
+
+
+
+
+
+//content horizontal moving
+
+const movingLine = document.getElementById("movingLine");
+
+const originalText = movingLine.innerHTML;
+
+// Duplicate text many times
+movingLine.innerHTML = originalText.repeat(10);
+
+let position = 0;
+let speed = 1;
+
+function moveText() {
+
+    position -= speed;
+
+    const resetWidth = movingLine.scrollWidth / 10;
+
+    if (Math.abs(position) >= resetWidth) {
+        position += resetWidth;
+    }
+
+    movingLine.style.transform =
+        `translate3d(${position}px, 0, 0)`;
+
+    requestAnimationFrame(moveText);
+}
+
+moveText();
+
+moveText();
