@@ -310,38 +310,7 @@ p {
     width: min(1180px, 90%);
 }
 
-/* Animated grid */
 
-/* .hero-grid-pattern {
-    position: absolute;
-    inset: 0;
-    z-index: -2;
-    pointer-events: none;
-    opacity: 0.7;
-    background-image:
-        linear-gradient(
-            rgba(22, 32, 63, 0.045) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(22, 32, 63, 0.045) 1px,
-            transparent 1px
-        );
-    background-size: 55px 55px;
-    mask-image: linear-gradient(to bottom, black, transparent 95%);
-    animation: servicesGridMove 25s linear infinite;
-} */
-
-/* @keyframes servicesGridMove {
-    from {
-        background-position: 0 0;
-    }
-
-    to {
-        background-position: 55px 55px;
-    }
-} */
 
 /* Background orbs */
 
@@ -437,7 +406,7 @@ p {
     }
 }
 
-.hero-copy h1,
+/* .hero-copy h1,
 .services-hero h1 {
     max-width: 750px;
     margin: 20px 0 0;
@@ -447,7 +416,7 @@ p {
     font-weight: 600;
     line-height: 1.06;
     letter-spacing: -3px;
-}
+} */
 
 
 
@@ -2275,4 +2244,172 @@ select:focus-visible {
         opacity: 1;
         transform: none;
     }
+}
+
+
+.hero-title {
+    max-width: 850px;
+    font-size: 55px;
+    line-height: 1.2;
+}
+
+.outline-text {
+    display: block;
+    max-width: 650px;
+    color: transparent;
+}
+
+
+
+
+/* SERVICES TABLE SECTION */
+
+.services-table-section {
+    background: #f5f5f3;
+    padding: 100px 6%;
+    color: #16203F;
+}
+
+.services-table-container {
+    max-width: 1250px;
+    margin: auto;
+}
+
+/* Heading */
+
+.services-table-heading {
+    margin-bottom: 50px;
+    max-width: 750px;
+}
+
+.services-table-heading span {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #16203F;
+}
+
+.services-table-heading h2 {
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 20px 0;
+}
+
+.services-table-heading h2 span {
+    font-size: inherit;
+    letter-spacing: inherit;
+    color: #16203F;
+}
+
+.services-table-heading p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #777;
+}
+
+/* Table Responsive */
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 10px;
+    border: 1px solid #dedede;
+    background: #fff;
+}
+
+/* Table */
+
+.services-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 850px;
+    text-align: left;
+}
+
+/* Table Header */
+
+.services-table thead {
+    background: #16203F;
+    color: #fff;
+}
+
+.services-table th {
+    padding: 24px 25px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Table Body */
+
+.services-table td {
+    padding: 30px 25px;
+    font-size: 14px;
+    line-height: 1.9;
+    color: #666;
+    border-bottom: 1px solid #e8e8e8;
+    vertical-align: top;
+    width: 33.33%;
+}
+
+.services-table tbody tr {
+    transition: background 0.3s ease;
+}
+
+.services-table tbody tr:hover {
+    background: #f6f6f6;
+}
+
+.services-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Service Domain */
+
+.services-table td h3 {
+    font-size: 17px;
+    line-height: 1.6;
+    color: #16203F;
+    font-weight: 750;
+    margin: 0;
+}
+
+/* Direct Benefit */
+
+.services-table td:last-child {
+    color: #333;
+    font-weight: 500;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+
+    .services-table-section {
+        padding: 70px 5%;
+    }
+
+    .services-table-heading h2 {
+        font-size: 38px;
+    }
+
+    .services-table th,
+    .services-table td {
+        padding: 20px;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .services-table-heading h2 {
+        font-size: 32px;
+    }
+
+    .services-table-heading p {
+        font-size: 14px;
+    }
+
 }

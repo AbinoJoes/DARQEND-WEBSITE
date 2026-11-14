@@ -97,7 +97,7 @@ h2,
 h3,
 h4 {
   font-family: var(--heading);
-  line-height: 1.12;
+  line-height: 1.3;
   letter-spacing: -1.4px;
 }
 
@@ -1094,3 +1094,353 @@ p {
     font-family: 'Manrope', sans-serif;
     letter-spacing: 3px;
 } 
+
+
+
+.hero-title {
+    max-width: 850px;
+    font-size: 55px;
+    line-height: 1.2;
+}
+
+.outline-text {
+    display: block;
+    max-width: 650px;
+    color: transparent;
+}
+
+
+
+
+/* =====================================
+   VALUE PROPOSITION SECTION
+===================================== */
+
+.value-section {
+    background: #D5DFDE;
+    color: #16203F;
+    padding: 110px 6%;
+    overflow: hidden;
+}
+
+.value-container {
+    max-width: 1250px;
+    margin: auto;
+}
+
+/* Section Header */
+
+.value-header {
+    max-width: 850px;
+    margin-bottom: 55px;
+}
+
+.value-label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #16203F;
+    margin-bottom: 22px;
+}
+
+.value-header h2 {
+    font-size: clamp(38px, 5vw, 65px);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -2px;
+    margin-bottom: 25px;
+}
+
+.value-header h2 span {
+    display: block;
+    color: #16203F;
+}
+
+.value-description {
+    max-width: 650px;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #666;
+}
+
+/* Business Benefits */
+
+.value-benefits {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-bottom: 35px;
+}
+
+.benefit-item {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    padding: 28px;
+    border-radius: 12px;
+    transition: 0.4s ease;
+}
+
+.benefit-item:hover {
+    transform: translateY(-6px);
+    border-color: #999;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.07);
+}
+
+.benefit-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    background: #16203F;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 21px;
+    margin-bottom: 18px;
+}
+
+.benefit-item h3 {
+    font-size: 19px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.benefit-item p {
+    color: #777;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* CTA Buttons */
+
+.value-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 75px;
+}
+
+.value-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 16px 24px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.35s ease;
+}
+
+.primary-btn {
+    background: #16203F;
+    color: #fff;
+    border: 1px solid #16203F;
+}
+
+.primary-btn:hover {
+    background: #2C485A;
+    border-color: #2C485A;
+    transform: translateY(-3px);
+}
+
+.secondary-btn {
+    color: #16203F;
+    border: 1px solid #bdbdbd;
+    background: transparent;
+}
+
+.secondary-btn:hover {
+    background: #16203F;
+    color: #fff;
+    border-color: #16203F;
+    transform: translateY(-3px);
+}
+
+.value-btn span {
+    font-size: 18px;
+}
+
+/* Pillars Grid */
+
+.pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+}
+
+.pillar-card {
+    position: relative;
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 12px;
+    padding: 35px;
+    min-height: 310px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s ease;
+    overflow: hidden;
+}
+
+/* .pillar-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background: #101010;
+    transition: width 0.4s ease;
+} */
+
+.pillar-card:hover::before {
+    width: 100%;
+}
+
+.pillar-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+    border-color: #ccc;
+}
+
+/* Pillar Top */
+
+.pillar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.pillar-number {
+    color: #999;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.pillar-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: #f0f0f0;
+    color: #16203F;
+    font-size: 25px;
+    transition: 0.4s ease;
+}
+
+.pillar-card:hover .pillar-icon {
+    background: #16203F;
+    color: #fff;
+    transform: rotate(8deg);
+}
+
+/* Pillar Content */
+
+.pillar-card h3 {
+    max-width: 350px;
+    font-size: 22px;
+    font-weight: 750;
+    line-height: 1.35;
+    margin-bottom: 15px;
+}
+
+.pillar-card p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #777;
+    margin-bottom: 25px;
+}
+
+.pillar-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: auto;
+    text-decoration: none;
+    color: #16203F;
+    font-size: 13px;
+    font-weight: 700;
+    width: fit-content;
+}
+
+.pillar-link span {
+    transition: transform 0.3s ease;
+}
+
+.pillar-link:hover span {
+    transform: translate(5px, -3px);
+}
+
+/* =====================================
+   RESPONSIVE DESIGN
+===================================== */
+
+@media (max-width: 768px) {
+
+    .value-section {
+        padding: 75px 5%;
+    }
+
+    .value-header h2 {
+        font-size: 42px;
+        letter-spacing: -1px;
+    }
+
+    .value-benefits {
+        grid-template-columns: 1fr;
+    }
+
+    .pillars-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .value-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .value-btn {
+        width: 100%;
+    }
+
+    .pillar-card {
+        min-height: auto;
+        padding: 28px;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .value-section {
+        padding: 60px 20px;
+    }
+
+    .value-header h2 {
+        font-size: 34px;
+    }
+
+    .value-description {
+        font-size: 14px;
+    }
+
+    .pillar-card h3 {
+        font-size: 20px;
+    }
+
+    .value-benefits {
+        gap: 15px;
+    }
+
+    .value-buttons {
+        margin-bottom: 50px;
+    }
+
+}
